@@ -1,0 +1,89 @@
+﻿    <Window x:Class="SolidTask.MainWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:SolidTask"
+            mc:Ignorable="d"
+           Title="Сдельная оплата труда" Height="600" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+            <TextBlock Text="ФИО" />
+            <TextBox x:Name="txtName" Margin="0,5"/>
+
+            <TextBlock Text="Табельный №" />
+            <TextBox x:Name="txtEmployeeNumber" Margin="0,5"/>
+
+            <ComboBox x:Name="cmbPaymentType" Margin="0,5">
+                <ComboBoxItem Content="Простая"/>
+                <ComboBoxItem Content="Сдельно-премиальная"/>
+                <ComboBoxItem Content="Сдельно-прогрессивная"/>
+                <ComboBoxItem Content="Косвенно-сдельная"/>
+            </ComboBox>
+            <Button Content="Добавить сотрудника" Click="AddEmployee_Click" Margin="0,5"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox x:Name="employeeList" SelectionChanged="employeeList_SelectionChanged" Margin="0,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding EmployeeNumber}" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding PaymentType}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock Text="Тип оплаты:" FontWeight="Bold"/>
+                <TextBlock x:Name="selectedType" Margin="0,0,0,10"/>
+
+                <StackPanel x:Name="hourlyRatePanel" Visibility="Collapsed">
+                    <TextBlock Text="Часовая ставка"/>
+                    <TextBox x:Name="txtHourlyRate"/>
+                </StackPanel>
+
+                <StackPanel x:Name="normPanel" Visibility="Collapsed">
+                    <TextBlock Text="Норма выработки"/>
+                    <TextBox x:Name="txtNorm"/>
+                </StackPanel>
+
+                <StackPanel x:Name="unitsPanel" Visibility="Collapsed">
+                    <TextBlock Text="Кол-во изделий"/>
+                    <TextBox x:Name="txtUnits"/>
+                </StackPanel>
+
+                <StackPanel x:Name="bonusPanel" Visibility="Collapsed">
+                    <TextBlock Text="Бонус"/>
+                    <TextBox x:Name="txtBonus"/>
+                </StackPanel>
+
+                <StackPanel x:Name="percentPanel" Visibility="Collapsed">
+                    <TextBlock Text="% от суммы основного производства"/>
+                    <TextBox x:Name="txtPercent"/>
+                </StackPanel>
+
+                <StackPanel x:Name="baseSalaryPanel" Visibility="Collapsed">
+                    <TextBlock Text="Базовая зарплата работников осн. произв."/>
+                    <TextBox x:Name="txtBaseSalary"/>
+                </StackPanel>
+
+                <Button Content="Рассчитать зарплату" Click="CalculateSalary_Click" Margin="0,10"/>
+                <TextBlock x:Name="txtResult" FontSize="16" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
